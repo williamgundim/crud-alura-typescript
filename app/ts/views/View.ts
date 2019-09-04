@@ -1,4 +1,5 @@
-abstract class View <T> {
+
+export abstract class View <T> {
 
     //protected - apenas a classe e os seus filhos podem acessar.
     protected _element:JQuery;
