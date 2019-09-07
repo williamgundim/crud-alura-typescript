@@ -1,4 +1,6 @@
-class Negociacoes{
+import { Negociacao } from './Negociacao'
+
+export class Negociacoes{
 
     //informa que o array irá possuir informações do 
     //tipo Negociacao, que é uma classe com data, valor, quantidade.
