@@ -1,21 +1,22 @@
-import { Negociacao,Negociacoes } from '../models/index'
+import { Negociacao,Negociacoes,NegociacaoAPI } from '../models/index'
 import { MensagemView,NegociacoesView } from '../views/index'
-import {tempoExecucao} from '../helpers/index'
+import {tempoExecucao, domInject} from '../helpers/index'
+import {NegociacaoService} from '../services/index'
 
 export class NegociacaoController{
 
+    @domInject('#data')
     private _inputData: JQuery;
+    @domInject('#quantidade') 
     private _inputQuantidade: JQuery;
+    @domInject('#valor')
     private _inputValor: JQuery;
     private _negociacoes = new Negociacoes;
     private _view = new NegociacoesView("#negociacoesView");
     private _msgView = new MensagemView("#mensagemView");
+    private _serviceAPI = new NegociacaoService(); 
 
     constructor(){
-
-        this._inputData = $("#data");
-        this._inputQuantidade = $("#quantidade");
-        this._inputValor = $("#valor"); 
     }
 
     @tempoExecucao()
@@ -48,6 +49,22 @@ export class NegociacaoController{
         {
             this._msgView.update("Negociacoes apenas de segunda a sexta.")
         }
+
+    }
+
+    //Método para importar dados da API.
+    importData(){
+
+       this._serviceAPI
+        .getAPI()
+        .then( negociacoes => {
+                
+                negociacoes.forEach(negociacao => 
+                    this._negociacoes.adiciona(negociacao))
+            } );
+
+            this._view.update(this._negociacoes.forArray());
+            this._msgView.update("Importado com sucesso!")
 
     }
 
