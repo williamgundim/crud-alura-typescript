@@ -20,6 +20,6 @@
   "dependencies": {
     "concurrently": "^3.4.0",
     "jqeury": "0.0.1-security",
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.0"
   }
 }
